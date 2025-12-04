@@ -1,0 +1,18 @@
+api_version = "2025-10"
+
+[[extensions]]
+type = "ui_extension"
+name = "Print Tutorial"
+uid = "ccf7edf4-a12d-b60a-9d4a-1cb8691864d6ec6a83e2"
+handle = "print-tutorial"
+description = "POS UI extension print tutorial"
+
+# module: file that contains your extension’s source code
+# target: location where your extension appears in POS
+[[extensions.targeting]]
+module = "./src/PrintTile.jsx"
+target = "pos.home.tile.render"
+
+[[extensions.targeting]]
+module = "./src/PrintModal.jsx"
+target = "pos.home.modal.render"

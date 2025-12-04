@@ -1,0 +1,18 @@
+api_version = "2025-10"
+
+[[extensions]]
+type = "ui_extension"
+name = "Discount"
+uid = "bdff5acd-d192-ddcd-05cf-ad6d759e978ac7c62980"
+handle = "discount"
+description = "Add discount"
+
+# module: file that contains your extension’s source code
+# target: location where your extension appears in POS
+[[extensions.targeting]]
+module = "./src/Tile.jsx"
+target = "pos.home.tile.render"
+
+[[extensions.targeting]]
+module = "./src/Modal.jsx"
+target = "pos.home.modal.render"
