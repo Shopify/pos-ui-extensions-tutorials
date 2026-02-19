@@ -1,4 +1,6 @@
 import {render} from 'preact';
+// Allows the use of `shopify.cart.current.value` as a stateful subscription.
+import '@shopify/ui-extensions/preact';
 
 export default async () => {
   render(<Extension />, document.body);
