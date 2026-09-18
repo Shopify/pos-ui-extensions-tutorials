@@ -6,9 +6,16 @@ export default async () => {
 
 function Extension() {
   // [START modal.define-onpress]
-  const onButtonClick = (type, title, amount) => {
-    shopify.cart.applyCartDiscount(type, title, amount);
-    shopify.toast.show("Discount applied");
+  const onButtonClick = async (type, title, amount) => {
+    try {
+      await shopify.cart.applyCartDiscount(type, title, amount);
+    } catch (error) {
+      shopify.toast.show("Couldn't confirm the discount. Check the cart.");
+      return;
+    }
+    // Resolution doesn't prove application, and a matching discount title might
+    // already exist. Ask the merchant to confirm the result in the cart.
+    shopify.toast.show("Check the cart to confirm the discount");
   };
   // [END modal.define-onpress]
   return (
