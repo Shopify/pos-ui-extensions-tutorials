@@ -6,6 +6,6 @@
     "other": "{{count}} items in cart"
   },
   "availableDiscounts": "View discount options",
-  "discountApplied": "Discount applied!",
-  "modalTitle": "Choose a discount"
+  "modalTitle": "Choose a discount",
+  "discountUnconfirmed": "Check the cart to confirm the discount"
 }

@@ -6,6 +6,6 @@
     "other": "{{count}} articles dans le panier"
   },
   "availableDiscounts": "Voir les options de réduction",
-  "discountApplied": "Réduction appliquée!",
-  "modalTitle": "Choisir une réduction"
+  "modalTitle": "Choisir une réduction",
+  "discountUnconfirmed": "Vérifiez le panier pour confirmer la réduction"
 }

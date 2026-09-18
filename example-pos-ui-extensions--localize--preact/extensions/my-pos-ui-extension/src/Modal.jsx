@@ -19,11 +19,17 @@ function Extension() {
   // [START localization.translate-item-count]
   const itemCount = shopify.cart.current.value.lineItems.length;
   // [END localization.translate-item-count]
-  const onButtonClick = (type, title, amount) => {
-    shopify.cart.applyCartDiscount(type, title, amount);
-    // [START localization.translate-discount-message]
-    shopify.toast.show(i18n.translate('discountApplied'));
-    // [END localization.translate-discount-message]
+  const onButtonClick = async (type, title, amount) => {
+    try {
+      await shopify.cart.applyCartDiscount(type, title, amount);
+      // Resolution doesn't prove application, and a matching discount title
+      // might already exist. Ask the merchant to check the cart.
+      // [START localization.translate-discount-message]
+      shopify.toast.show(i18n.translate('discountUnconfirmed'));
+      // [END localization.translate-discount-message]
+    } catch {
+      shopify.toast.show(i18n.translate('discountUnconfirmed'));
+    }
   };
 
   return (
@@ -34,7 +40,7 @@ function Extension() {
         <s-text>
           {i18n.translate('itemCount', {count: itemCount})}
         </s-text>
-        <s-button onClick={() => onButtonClick('Percentage', '25% off', '25')}>
+        <s-button onClick={() => onButtonClick('Percentage', '25.5% off', '25.5')}>
           {formattedPercentageDiscount}%
         </s-button>
         <s-button onClick={() => onButtonClick('FixedAmount', '$10 off', '10')}>
