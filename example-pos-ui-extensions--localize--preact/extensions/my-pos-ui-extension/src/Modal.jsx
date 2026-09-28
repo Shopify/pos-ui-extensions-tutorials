@@ -18,12 +18,24 @@ function Extension() {
   // [END localization.format-currency]
   // [START localization.translate-item-count]
   const itemCount = shopify.cart.current.value.lineItems.length;
+  // A count of 0 selects the `other` plural form in English and the `one`
+  // form in French, so show a dedicated string for an empty cart instead.
+  const itemCountMessage =
+    itemCount === 0
+      ? i18n.translate('emptyCart')
+      : i18n.translate('itemCount', {count: itemCount});
   // [END localization.translate-item-count]
-  const onButtonClick = (type, title, amount) => {
-    shopify.cart.applyCartDiscount(type, title, amount);
-    // [START localization.translate-discount-message]
-    shopify.toast.show(i18n.translate('discountApplied'));
-    // [END localization.translate-discount-message]
+  const onButtonClick = async (type, title, amount) => {
+    try {
+      await shopify.cart.applyCartDiscount(type, title, amount);
+      // Resolution doesn't prove application, and a matching discount title
+      // might already exist. Ask the merchant to check the cart.
+      // [START localization.translate-discount-message]
+      shopify.toast.show(i18n.translate('discountUnconfirmed'));
+      // [END localization.translate-discount-message]
+    } catch {
+      shopify.toast.show(i18n.translate('discountUnconfirmed'));
+    }
   };
 
   return (
@@ -32,9 +44,9 @@ function Extension() {
       <s-scroll-box>
       <s-stack gap="base">
         <s-text>
-          {i18n.translate('itemCount', {count: itemCount})}
+          {itemCountMessage}
         </s-text>
-        <s-button onClick={() => onButtonClick('Percentage', '25% off', '25')}>
+        <s-button onClick={() => onButtonClick('Percentage', '25.5% off', '25.5')}>
           {formattedPercentageDiscount}%
         </s-button>
         <s-button onClick={() => onButtonClick('FixedAmount', '$10 off', '10')}>
