@@ -18,6 +18,12 @@ function Extension() {
   // [END localization.format-currency]
   // [START localization.translate-item-count]
   const itemCount = shopify.cart.current.value.lineItems.length;
+  // A count of 0 selects the `other` plural form in English and the `one`
+  // form in French, so show a dedicated string for an empty cart instead.
+  const itemCountMessage =
+    itemCount === 0
+      ? i18n.translate('emptyCart')
+      : i18n.translate('itemCount', {count: itemCount});
   // [END localization.translate-item-count]
   const onButtonClick = async (type, title, amount) => {
     try {
@@ -38,7 +44,7 @@ function Extension() {
       <s-scroll-box>
       <s-stack gap="base">
         <s-text>
-          {i18n.translate('itemCount', {count: itemCount})}
+          {itemCountMessage}
         </s-text>
         <s-button onClick={() => onButtonClick('Percentage', '25.5% off', '25.5')}>
           {formattedPercentageDiscount}%

@@ -1,10 +1,10 @@
 {
   "name": "Réduction",
   "itemCount": {
-    "zero": "Aucun article dans le panier",
     "one": "{{count}} article dans le panier",
     "other": "{{count}} articles dans le panier"
   },
+  "emptyCart": "Aucun article dans le panier",
   "availableDiscounts": "Voir les options de réduction",
   "modalTitle": "Choisir une réduction",
   "discountUnconfirmed": "Vérifiez le panier pour confirmer la réduction"
